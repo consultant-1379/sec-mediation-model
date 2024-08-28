@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ericsson.nms.mediation.models</groupId>
+        <artifactId>sec-mediation-model</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>    
+    
+    <artifactId>sec-mediation-event-model</artifactId>
+    <packaging>jar</packaging>
+        
+    <groupId>com.ericsson.nms.mediation.models</groupId>    
+    
+    <name>[sec-mediation-event-model] MODEL module</name>
+
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.modeling.tools</groupId>
+            <artifactId>modeling-annotation-processor-jar</artifactId>
+        </dependency>        
+        <dependency>
+            <groupId>com.ericsson.nms.mediation</groupId>
+            <artifactId>core-mediation-models-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.mediation</groupId>
+            <artifactId>mediation-sdk-event-models-jar</artifactId>
+            <version>${version.med-sdk-event-models}</version>
+        </dependency>
+    </dependencies>
+    
+    
+    <build>
+        <plugins>
+            <!-- This invokes the Annotation Processor. It runs against all the compiled classes
+            part of this api module. Note that the output of the AP is put into the build
+            directory of a different module (not this one here) -->
+            <plugin>
+                <groupId>com.ericsson.oss.itpf.modeling.tools</groupId>
+                <artifactId>modeling-annotation-processor-jar</artifactId>
+                <version>${modeling-sdk.annoproc.version}</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>annoproc</goal>
+                        </goals>
+                        <configuration>
+                            <modelBuildDir>../sec-mediation-model-jar/model-build</modelBuildDir>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.ericsson.oss.mediation</groupId>
+                        <artifactId>mediation-sdk-event-models-jar</artifactId>
+                        <version>${version.med-sdk-event-models}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
